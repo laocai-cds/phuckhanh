@@ -1231,7 +1231,7 @@ go();document.addEventListener('DOMContentLoaded',go);
     <label class="f" for="ntToken">Mã đồng bộ</label>
     <input class="input" id="ntToken" type="password" autocomplete="off" placeholder="Nhập mã đồng bộ mới được lưu">
     <p class="fieldmsg" id="ntMsg" role="status"></p>
-    <div class="macts"><button class="btn" id="ntCancel" type="button">Hủy</button><button class="btn solid" id="ntSave" type="button">Lưu thông báo</button></div>
+    <div class="macts"><button class="btn" id="ntCancel" type="button" aria-label="Đóng" title="Đóng">Hủy</button><button class="btn solid" id="ntSave" type="button">Lưu thông báo</button></div>
   </div>
 </div>
 <div class="back" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
@@ -3373,7 +3373,8 @@ html body .stat .ico{transition:transform .25s ease;animation:sfIco 3s ease-in-o
 html body .stat:hover .ico{animation-duration:.8s}
 html body .stat.k2 .ico{animation-delay:.4s}html body .stat.k3 .ico{animation-delay:.8s}html body .stat.k4 .ico{animation-delay:1.2s}
 </style>
-<style id="ntm-fix">@media(min-width:900px){html body .ntm>.macts{grid-row:12!important;grid-column:1/-1!important;position:relative;z-index:1;margin-top:16px!important}html body .ntm>#xaAdm{grid-row:3/12!important}}</style>
+<style id="ntm-fix">@media(min-width:900px){html body .ntm>.macts{grid-row:12!important;grid-column:1/-1!important;position:static!important;margin-top:16px!important}html body .ntm>#xaAdm{grid-row:3/12!important}}</style>
 <style id="msum-light">html body .msum{background:#eef1fb!important;border:1px solid #c9d2f2!important;border-left:4px solid #34459a!important;color:#25326f!important}html body .msum .up{color:#16794d!important}html body .msum .dn{color:#c1121f!important}</style>
+<style id="nt-x">html body .ntm{position:relative}html body #ntCancel{position:absolute!important;top:14px;right:14px;width:34px;height:34px;min-width:0;padding:0!important;border-radius:50%!important;font-size:0!important;line-height:1;display:grid;place-items:center;z-index:3}html body #ntCancel::before{content:"×";font-size:24px;line-height:1;color:#34459a}html body #ntCancel:hover{background:#eef1fb}</style>
 </body>
 </html>
