@@ -2412,7 +2412,7 @@ thBuild();setTimeout(thLoad,1200);
 AUTH.init();
 
 /* ===== Đang online & Tổng truy cập (Firebase Realtime Database) ===== */
-const FB_CFG=null;/* TODO: dán cấu hình Firebase (Realtime Database) của xã Phúc Khánh để bật bộ đếm Đang online / Tổng truy cập */
+const FB_CFG={apiKey:"AIzaSyA8xWQ4nKuqOAg_rg-NkUD0z333C6qnkgc",authDomain:"xaphuong-28262.firebaseapp.com",databaseURL:"https://xaphuong-28262-default-rtdb.firebaseio.com",projectId:"xaphuong-28262",appId:"1:535253455945:web:0a1851ebe9c661b8179b98"};/* Firebase dùng chung xaphuong: bộ đếm Đang online / Tổng truy cập, dữ liệu ở xa/phuckhanh */
 (function liveStats(){
   const set=(k,n)=>document.querySelectorAll('[data-live="'+k+'"]').forEach(e=>{e.textContent=nf.format(n)});
   const show=()=>{const a=document.getElementById('liveBar'),b=document.getElementById('livePill');if(a)a.hidden=false;if(b)b.hidden=false};
@@ -2421,7 +2421,7 @@ const FB_CFG=null;/* TODO: dán cấu hình Firebase (Realtime Database) của x
   const go=()=>load(base+'firebase-app-compat.js').then(()=>load(base+'firebase-database-compat.js')).then(()=>{
     firebase.initializeApp(FB_CFG);const db=firebase.database();
     let sid='';try{sid=sessionStorage.getItem('pk_sid')||'';if(!sid){sid=Math.random().toString(36).slice(2,10)+Date.now().toString(36);sessionStorage.setItem('pk_sid',sid)}}catch(_){sid=Math.random().toString(36).slice(2,10)}
-    const me=db.ref('presence/'+sid),vr=db.ref('stats/visits'),pr=db.ref('presence');
+    const me=db.ref('xa/phuckhanh/presence/'+sid),vr=db.ref('xa/phuckhanh/stats/visits'),pr=db.ref('xa/phuckhanh/presence');
     // Chỉ hiện số đã được máy chủ xác nhận (không dùng giá trị tạm trên máy khách)
     let pOn=false,vOn=false;
     const startPresence=()=>{if(pOn)return;pOn=true;pr.on('value',s=>{if(s.exists()){set('online',Math.max(1,s.numChildren()));gate('p')}},()=>{})};
