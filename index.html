@@ -1353,7 +1353,7 @@ const nkey=x=>String(x||'').toLocaleLowerCase('vi').replace(/[^\p{L}\p{N}]+/gu,'
 let liveStale=false,liveUnits=[],viewKey=null,msnap={};try{msnap=JSON.parse(localStorage.getItem('pk_msnap')||'{}')||{}}catch(_){}
 const curKey=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')};
 const viewingPast=()=>!!(viewKey&&viewKey!==curKey()&&msnap[viewKey]);
-function applyView(){const src=viewingPast()?msnap[viewKey].rows:liveUnits;
+function applyView(){const src=(viewingPast()?msnap[viewKey].rows:liveUnits).filter(r=>v(r,'members')>0||v(r,'due')>0||v(r,'paidCount')>0||v(r,'paid')>0);
   units=[...src].sort((a,b)=>v(b,'progress')-v(a,'progress')||v(b,'paid')-v(a,'paid'));rankOf=new Map();units.forEach((r,i)=>rankOf.set(r,i+1));if(window.SITECFG)SITECFG.post()}
 function renderBanner(){let b=$('#viewBanner');if(!b){b=document.createElement('div');b.id='viewBanner';const o=$('#overview');o.insertBefore(b,o.firstChild)}
   if(!viewingPast()){b.style.display='none';return}
@@ -1639,6 +1639,7 @@ function sorted(list){
     return (x-y)*dir;
   });
 }
+const tier=r=>{const p=v(r,'progress');return p>=1?'t1':p>=.8?'t2':p>=.5?'t3':p>0?'t4':'t5'};
 const progCell=r=>`<div class="pbar"><div class="track"><i class="${cls(r)}" data-w="${Math.min(100,v(r,'progress')*100)}%"></i></div><b>${pct(v(r,'progress'))}</b></div>`;
 const rk=r=>{const n=rankOf.get(r);return `<span class="rk ${n<=3?'m'+n:cls(r)}">${n}</span>`};
 const zc=(x,c)=>x>0?`<td class="n ${c}">${x}</td>`:'<td class="n zero">0</td>';
@@ -1648,10 +1649,10 @@ function fillTables(){
   list=sorted(list);
   $('#rowcount').textContent=`Hiển thị ${list.length} / ${units.length} đơn vị`;
   $('#noresult').hidden=list.length>0;
-  $('#tbody').innerHTML=list.map(r=>{const[s,c]=status(r);return `<tr class="row ${cls(r)}"><td>${rk(r)}</td><td class="uname" data-cb="${cbSlug(r)}" title="Xem thẻ đơn vị">${esc(nm(r))}</td><td class="n pc"><b>${v(r,'paidCount')}</b>/${v(r,'due')}</td>${zc(v(r,'pending'),'amb')}${zc(v(r,'noRecord'),'red')}<td class="n">${money(v(r,'declared'))}</td><td class="n mny"><b>${money(v(r,'paid'))}</b></td><td>${progCell(r)}</td><td><span class="pill ${c}">${s}</span></td></tr>`}).join('');
+  $('#tbody').innerHTML=list.map(r=>{const[s,c]=status(r);return `<tr class="row ${cls(r)} ${tier(r)}"><td>${rk(r)}</td><td class="uname" data-cb="${cbSlug(r)}" title="Xem thẻ đơn vị">${esc(nm(r))}</td><td class="n pc"><b>${v(r,'paidCount')}</b>/${v(r,'due')}</td>${zc(v(r,'pending'),'amb')}${zc(v(r,'noRecord'),'red')}<td class="n">${money(v(r,'declared'))}</td><td class="n mny"><b>${money(v(r,'paid'))}</b></td><td>${progCell(r)}</td><td><span class="pill ${c}">${s}</span></td></tr>`}).join('');
   const q2=($('#search2').value||'').toLocaleLowerCase('vi');
   const l2=sorted(units.filter(r=>nm(r).toLocaleLowerCase('vi').includes(q2)));
-  $('#tbody2').innerHTML=l2.map(r=>`<tr class="row ${cls(r)}"><td class="hint">${esc(r[KEYS.stt])}</td><td>${rk(r)}</td><td class="uname" data-cb="${cbSlug(r)}" title="Xem thẻ đơn vị">${esc(nm(r))}</td><td class="n">${v(r,'members')}</td>${zc(v(r,'pending'),'amb')}<td class="n pc"><b>${v(r,'paidCount')}</b></td><td class="n mny"><b>${money(v(r,'paid'))}</b></td><td>${progCell(r)}</td></tr>`).join('');
+  $('#tbody2').innerHTML=l2.map(r=>`<tr class="row ${cls(r)} ${tier(r)}"><td class="hint">${esc(r[KEYS.stt])}</td><td>${rk(r)}</td><td class="uname" data-cb="${cbSlug(r)}" title="Xem thẻ đơn vị">${esc(nm(r))}</td><td class="n">${v(r,'members')}</td>${zc(v(r,'pending'),'amb')}<td class="n pc"><b>${v(r,'paidCount')}</b></td><td class="n mny"><b>${money(v(r,'paid'))}</b></td><td>${progCell(r)}</td></tr>`).join('');
   $$('th[data-sort]').forEach(th=>th.setAttribute('aria-sort',th.dataset.sort===state.sort.k?(state.sort.dir>0?'ascending':'descending'):'none'));
   growBars('#overview .tw');growBars('#units .tw');
 }
@@ -3327,5 +3328,24 @@ html body .lnk-box .lnk-sub{color:#4a5378!important}
 </style>
 <style id="ph-plain">html body .tablepanel .thead .ph h2{background:none!important;clip-path:none!important;color:#27357c!important;padding:0!important;min-height:0!important;line-height:1.3!important;font-size:16px!important;text-transform:none!important;letter-spacing:0!important;font-family:var(--serif)!important;font-weight:800!important;border-radius:0!important}html body .tablepanel .thead .ph h2::before,html body .tablepanel .thead .ph h2::after{display:none!important}</style>
 <style id="scenic-bright">.scenic::after{display:none!important}.scenic img{image-rendering:auto}</style>
+<style id="tbl-color">
+html body tr.row{--tc:#3b54c9;--tb:#e6ebfb}
+html body tr.row.t1{--tc:#1fa86b;--tb:#dff5ea}
+html body tr.row.t2{--tc:#3b54c9;--tb:#e6ebfb}
+html body tr.row.t3{--tc:#d99a0b;--tb:#fdf1d0}
+html body tr.row.t4{--tc:#f07b2a;--tb:#fde6d4}
+html body tr.row.t5{--tc:#e0383f;--tb:#fbe0e1}
+html body tr.row>td:first-child{box-shadow:inset 4px 0 0 var(--tc)!important}
+html body tr.row .rk:not(.m1):not(.m2):not(.m3){background:var(--tb)!important;color:var(--tc)!important}
+html body tr.row .pill{background:var(--tb)!important;color:var(--tc)!important}
+html body tr.row .pbar .track i{background:var(--tc)!important}
+html body tr.row .pbar b{color:var(--tc)!important}
+html body tr.row td.pc b{color:#1fa86b!important}
+html body tr.row td.n.amb{color:#f07b2a!important;font-weight:700}
+html body tr.row td.n.red{color:#e0383f!important;font-weight:700}
+html body tr.row td.mny b{color:#0f9d6a!important}
+html body tr.row.t1 .uname{color:#16794d!important}
+html body tr.row.t5 .uname{color:#b62b31!important}
+</style>
 </body>
 </html>
