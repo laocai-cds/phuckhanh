@@ -941,6 +941,7 @@ go();document.addEventListener('DOMContentLoaded',go);
       <button class="tab" id="aiBtn" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4"/><circle cx="12" cy="3.5" r="1"/><circle cx="9" cy="13" r="1.2"/><circle cx="15" cy="13" r="1.2"/><path d="M9.5 16.5h5"/></svg><span>Trợ lý AI TTHC</span></button>
       <button class="tab admin-only" data-page="import"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 8.3-8 9-4.8-.7-8-4.5-8-9V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Quản trị</span></button>
     </nav>
+    <div class="tho-deco" aria-hidden="true"></div>
     <div class="barright">
       <button class="btn" id="reportBtn" title="Tạo báo cáo (In/PDF, Excel, Word)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg><span class="lbl">Tạo báo cáo</span></button>
       <button class="btn" id="exportBtn" title="Xuất bảng tính Excel"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg><span class="lbl">Xuất Excel</span></button>
@@ -3272,8 +3273,16 @@ html body .cbm-acts .btn{padding:8px 10px!important}
 @media(max-width:480px){html body .cbm-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 </style>
 <style id="thocam-bg">
-.bar::before{left:0!important;right:0!important;bottom:172px!important;width:100%!important;height:auto!important;aspect-ratio:560/350;transform:none!important;opacity:.55!important;background:url(hoavan.png) center bottom/100% auto no-repeat!important;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%);mask-image:linear-gradient(180deg,transparent 0,#000 30%)}
+.bar::before{display:none!important}
+.tho-deco{display:none}
+@media(min-width:1024px){
+.bar .barright{margin-top:0!important}
+.tho-deco{display:block;flex:0 1 170px;min-height:0;margin:auto -18px 6px;opacity:.55;pointer-events:none;
+ background:url(hoavan.png) center bottom/100% auto no-repeat;
+ -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%);mask-image:linear-gradient(180deg,transparent 0,#000 30%)}
+}
 </style>
+
 
 
 <style id="brand-small-white">html body .bar .brand small{color:#fff!important;opacity:1!important}</style>
