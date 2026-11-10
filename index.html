@@ -3235,12 +3235,12 @@ html body .heroline>.hl-rank .kp-more svg{width:13px;height:13px;transition:tran
 html body .heroline>.hl-rank .kp-more:hover svg{transform:translateX(3px)}
 </style>
 <script>(()=>{const M=document.getElementById('rankModal');if(!M)return;
-const C={complete:['#34459a','#e8ecfb'],partial:['#6f80d8','#eef0fb'],empty:['#8a93b8','#f1f3f9']};
+const C={complete:['#1fa86b','#dff5ea'],partial:['#d99a0b','#fdf1d0'],empty:['#e0383f','#fbe0e1']};const T=[['#1fa86b','#dff5ea'],['#3b54c9','#e6ebfb'],['#d99a0b','#fdf1d0'],['#f07b2a','#fde6d4'],['#e0383f','#fbe0e1']];const tr=p=>p>=1?T[0]:p>=.8?T[1]:p>=.5?T[2]:p>0?T[3]:T[4];
 function open(){const L=units.filter(r=>v(r,'members')>0).sort((a,b)=>(rankOf.get(a)||999)-(rankOf.get(b)||999));
  const n={complete:0,partial:0,empty:0};L.forEach(r=>{const c=cls(r);n[c in n?c:'empty']++});
  document.getElementById('rankSum').innerHTML=[['complete','Hoàn thành'],['partial','Đang thu'],['empty','Chưa phát sinh']].map(([k,l])=>`<span style="--c:${C[k][0]};--c-bg:${C[k][1]}">${l} <b>${n[k]}</b></span>`).join('');
- document.getElementById('rankList').innerHTML=L.map(r=>{const c=cls(r),col=(C[c]||C.empty)[0],p=Math.max(0,Math.min(1,v(r,'progress')));
-  return `<div class="rkm-row">${rk(r)}<div class="rkm-nm"><span class="uname">${esc(nm(r))}</span><small>${esc(status(r)[0])} · ${money(v(r,'paid'))}</small></div><div class="rkm-bar" style="--c:${col}"><i><b style="width:${(p*100).toFixed(1)}%"></b></i><em>${pct(p)}</em></div><div class="rkm-ct"><b>${num(v(r,'paidCount'))}</b>/${num(v(r,'due'))}<br>đảng viên</div></div>`}).join('')||'<p class="empty">Chưa có số liệu đơn vị.</p>';
+ document.getElementById('rankList').innerHTML=L.map(r=>{const c=cls(r),p=Math.max(0,Math.min(1,v(r,'progress'))),tc=tr(p),col=tc[0],n3=rankOf.get(r)<=3;
+  return `<div class="rkm-row" style="--tc:${tc[0]};--tb:${tc[1]}">${rk(r)}<div class="rkm-nm"><span class="uname">${esc(nm(r))}</span><small>${esc(status(r)[0])} · ${money(v(r,'paid'))}</small></div><div class="rkm-bar" style="--c:${col}"><i><b style="width:${(p*100).toFixed(1)}%"></b></i><em>${pct(p)}</em></div><div class="rkm-ct"><b>${num(v(r,'paidCount'))}</b>/${num(v(r,'due'))}<br>đảng viên</div></div>`}).join('')||'<p class="empty">Chưa có số liệu đơn vị.</p>';
  const q=document.getElementById('rankQ');q.value='';filt();
  M.classList.add('on');document.body.style.overflow='hidden';setTimeout(()=>q.focus(),30)}
 function fold(x){return String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d')}
@@ -3346,6 +3346,15 @@ html body tr.row td.n.red{color:#e0383f!important;font-weight:700}
 html body tr.row td.mny b{color:#0f9d6a!important}
 html body tr.row.t1 .uname{color:#16794d!important}
 html body tr.row.t5 .uname{color:#b62b31!important}
+</style>
+<style id="rkm-color">
+html body .rkm-row{box-shadow:inset 4px 0 0 var(--tc);padding-left:12px}
+html body .rkm-row .rk:not(.m1):not(.m2):not(.m3){background:var(--tb)!important;color:var(--tc)!important}
+html body .rkm-row .rkm-bar i{background:var(--tb)!important}
+html body .rkm-row .rkm-bar i b{background:linear-gradient(90deg,var(--tc),var(--tc))!important}
+html body .rkm-row .rkm-bar em{color:var(--tc)!important}
+html body .rkm-row .rkm-ct b{color:var(--tc)!important}
+html body .rkm-row small{color:var(--tc)!important;opacity:.85}
 </style>
 </body>
 </html>
