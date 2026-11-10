@@ -1598,10 +1598,10 @@ function render(){
   $('#colchart').setAttribute('aria-label',`Biểu đồ cột tiến độ thu đảng phí của ${n} đơn vị, ${done} đơn vị nộp đủ`);
   $('#colchart').innerHTML=units.map((r,i)=>{const p=Math.max(0,Math.min(1,v(r,'progress')));return `<div class="col" title="${esc(nm(r))}: ${pct(v(r,'progress'))} · ${v(r,'paidCount')}/${v(r,'due')} đảng viên đã nộp · ${money(v(r,'paid'))}"><div class="cb ${cls(r)}" data-h="${p*100}" style="--i:${i}"><i class="t3"></i><i class="s3"></i><em>${Math.round(p*100)}%</em></div></div>`}).join('');
   $('#colnames').innerHTML='';
-  $('#chartlegend').innerHTML=[['Đã hoàn thành','#2e3c85'],['Đang thu','#b8921f'],['Chưa phát sinh','#d1d5db']].map(([l,c])=>`<span style="--c:${c}">${l}</span>`).join('');
+  $('#chartlegend').innerHTML=[['Đã hoàn thành','#1fa86b'],['Đang thu','#f2b61f'],['Chưa phát sinh','#e0383f']].map(([l,c])=>`<span style="--c:${c}">${l}</span>`).join('');
 
   // split by status
-  const groups=[['Đã hoàn thành','#2e3c85'],['Đang thu','#b8921f'],['Chưa phát sinh','#9ca3af']].map(([l,c])=>({l,c,n:0}));
+  const groups=[['Đã hoàn thành','#1fa86b'],['Đang thu','#f2b61f'],['Chưa phát sinh','#e0383f']].map(([l,c])=>({l,c,n:0}));
   active.forEach(r=>{const s=status(r)[0];const g=groups.find(x=>x.l===s);if(g)g.n++});
   $('#split').setAttribute('aria-label',groups.map(g=>`${g.n} ${g.l.toLowerCase()}`).join(', '));
   $('#split').innerHTML=groups.filter(g=>g.n).map(g=>`<i style="flex:${g.n};background:${g.c}" title="${g.l}: ${g.n}"></i>`).join('');
@@ -3441,6 +3441,28 @@ html body .podium .step .meta span{background:#fff!important;border-color:var(--
 html body .podium .step .meta b{color:#1f2740!important}
 html body .podium .step .go{color:var(--tc)!important;border-top:1px dashed var(--bdc)!important}
 html body .podium .step .no{box-shadow:0 0 0 3px #fff,0 0 0 4px var(--bdc),0 6px 12px -6px #0005!important}
+</style>
+<style id="chase-color">
+html body #split{gap:3px}
+html body #split i{box-shadow:inset 0 -3px 0 rgba(0,0,0,.12)}
+html body #splitlegend>span{background:color-mix(in srgb,var(--c) 10%,#fff)!important;border-color:color-mix(in srgb,var(--c) 30%,#fff)!important;border-top:4px solid var(--c)!important}
+html body #splitlegend>span b{color:var(--c)!important}
+html body #splitlegend>span em{color:#44506e!important;font-style:normal;font-weight:600}
+html body #chase .chase{--cc:#3b54c9;--cb:#e6ebfb;border-radius:10px;padding:10px 10px;transition:background .2s}
+html body #chase .chase:nth-child(1){--cc:#e0383f;--cb:#fbe0e1}
+html body #chase .chase:nth-child(2){--cc:#f07b2a;--cb:#fde6d4}
+html body #chase .chase:nth-child(3){--cc:#f2b61f;--cb:#fdf1d0}
+html body #chase .chase:nth-child(4){--cc:#1fa86b;--cb:#dff5ea}
+html body #chase .chase:nth-child(5){--cc:#3fb7d4;--cb:#dff3f8}
+html body #chase .chase:nth-child(6){--cc:#7c5ce0;--cb:#ece6fb}
+html body #chase .chase:hover{background:var(--cb)}
+html body #chase .chase .rk{background:linear-gradient(145deg,color-mix(in srgb,var(--cc) 70%,#fff),var(--cc))!important;color:#fff!important;box-shadow:0 4px 8px -3px var(--cc)!important}
+html body #chase .chase .bar2{height:6px!important;background:var(--cb)!important}
+html body #chase .chase .bar2 i{background:linear-gradient(90deg,color-mix(in srgb,var(--cc) 65%,#fff),var(--cc))!important}
+html body #chase .chase .cm span{font-weight:600;color:#1f2740}
+html body #chase .chase u.c1{background:#fbe0e1;color:#c0282e}
+html body #chase .chase u.c2{background:#fdf1d0;color:#8a5a00}
+html body #chase .chase u.c3{background:#dff5ea;color:#12804f}
 </style>
 </body>
 </html>
