@@ -3358,5 +3358,20 @@ html body .rkm-row small{color:var(--tc)!important;opacity:.85}
 </style>
 <style id="donut-small">html body #donutpct{font-size:1.25rem!important;letter-spacing:0!important}html body .dcenter span{font-size:11.5px!important;max-width:120px!important;margin-top:4px!important}@media(max-width:900px){html body #donutpct{font-size:1.05rem!important}}</style>
 <style id="foot-white">html body .fcard .cr-k{color:#fff!important;opacity:1!important}html body .fcard .cr-o{color:#ffe36e!important;font-weight:700!important}</style>
+<style id="stat-fx">
+@keyframes sfIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes sfBar{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes sfIco{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.1) rotate(-6deg)}}
+@keyframes sfShine{0%{left:-60%}60%,100%{left:130%}}
+html body .stat{animation:sfIn .6s cubic-bezier(.2,.8,.2,1) both;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+html body .stat.k2{animation-delay:.08s}html body .stat.k3{animation-delay:.16s}html body .stat.k4{animation-delay:.24s}
+html body .stat:hover{transform:translateY(-5px);border-color:var(--k);box-shadow:0 14px 30px -10px var(--k),0 4px 10px rgba(30,40,90,.12)}
+html body .stat::after{height:4px;background:linear-gradient(90deg,var(--k),#fff8 50%,var(--k)) 0 0/200% 100%;animation:sfBar 3.5s linear infinite}
+html body .stat::before{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);pointer-events:none;animation:sfShine 5s ease-in-out infinite}
+html body .stat.k2::before{animation-delay:1.2s}html body .stat.k3::before{animation-delay:2.4s}html body .stat.k4::before{animation-delay:3.6s}
+html body .stat .ico{transition:transform .25s ease;animation:sfIco 3s ease-in-out infinite}
+html body .stat:hover .ico{animation-duration:.8s}
+html body .stat.k2 .ico{animation-delay:.4s}html body .stat.k3 .ico{animation-delay:.8s}html body .stat.k4 .ico{animation-delay:1.2s}
+</style>
 </body>
 </html>
