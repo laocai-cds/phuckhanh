@@ -3464,5 +3464,22 @@ html body #chase .chase u.c1{background:#fbe0e1;color:#c0282e}
 html body #chase .chase u.c2{background:#fdf1d0;color:#8a5a00}
 html body #chase .chase u.c3{background:#dff5ea;color:#12804f}
 </style>
+<style id="split-fx">
+@keyframes slIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes slShine{0%{left:-60%}55%,100%{left:130%}}
+@keyframes slPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes slBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+html body #splitlegend>span{position:relative;overflow:hidden;animation:slIn .55s cubic-bezier(.2,.8,.2,1) both;transition:transform .25s ease,box-shadow .25s ease}
+html body #splitlegend>span:nth-child(2){animation-delay:.1s}html body #splitlegend>span:nth-child(3){animation-delay:.2s}
+html body #splitlegend>span>*{position:relative;z-index:1}
+html body #splitlegend>span::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:35%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-18deg);animation:slShine 5s ease-in-out infinite;z-index:0}
+html body #splitlegend>span:nth-child(2)::after{animation-delay:1.3s}html body #splitlegend>span:nth-child(3)::after{animation-delay:2.6s}
+html body #splitlegend>span:hover{transform:translateY(-4px);box-shadow:0 12px 24px -12px var(--c)}
+html body #splitlegend>span b{display:inline-block;transform-origin:left center;animation:slPulse 3s ease-in-out infinite}
+html body #splitlegend>span:nth-child(2) b{animation-delay:.5s}html body #splitlegend>span:nth-child(3) b{animation-delay:1s}
+html body #split i{transform-origin:left center;animation:slBar .9s cubic-bezier(.2,.8,.2,1) both}
+html body #split i:nth-child(2){animation-delay:.15s}html body #split i:nth-child(3){animation-delay:.3s}
+html body #split i:hover{filter:brightness(1.1)}
+</style>
 </body>
 </html>
