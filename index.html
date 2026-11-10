@@ -3384,5 +3384,20 @@ html body #xaAdm #xaTry{margin-right:4px!important}
 @media(max-width:899px){html body #ntSave{width:100%!important}html body .ntm>.macts{display:block}}
 </style>
 <style id="ntm-rows">@media(min-width:900px){html body .ntm{grid-template-rows:none!important;grid-auto-rows:auto!important;align-content:start!important}}</style>
+<style id="stat-color">
+html body .stat.k1{--k:#3b54c9;--k2:#6a82ee;--kd:#27357c;--kt:#eef1ff}
+html body .stat.k2{--k:#f2a516;--k2:#f9cf5e;--kd:#8a5a00;--kt:#fff6dc}
+html body .stat.k3{--k:#1fa86b;--k2:#4fd596;--kd:#0f7a4c;--kt:#e6f8ef}
+html body .stat.k4{--k:#f07b2a;--k2:#f7a766;--kd:#b4531a;--kt:#fff0e4}
+html body .stat{background:linear-gradient(135deg,var(--kt) 0%,#fff 55%)!important;border-color:color-mix(in srgb,var(--k) 22%,#fff)!important}
+html body .stat>*{position:relative;z-index:1}
+html body .stat::before{z-index:0}
+html body .stat .ico{position:absolute!important;width:44px!important;height:44px!important;border-radius:14px!important;background:linear-gradient(145deg,var(--k2),var(--k))!important;color:#fff!important;box-shadow:0 8px 16px -6px var(--k),inset 0 1px 0 rgba(255,255,255,.45)!important;right:14px!important;top:14px!important}
+html body .stat .ico svg{width:23px!important;height:23px!important;stroke-width:2!important;filter:drop-shadow(0 1px 1px rgba(0,0,0,.2))}
+html body .stat strong{color:var(--kd)!important}
+html body .stat span{color:#5a6280!important}
+html body .stat small b{color:var(--k)!important}
+html body .stat::after{background:linear-gradient(90deg,var(--k),var(--k2) 50%,var(--k)) 0 0/200% 100%!important}
+</style>
 </body>
 </html>
