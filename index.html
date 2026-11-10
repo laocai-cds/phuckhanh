@@ -807,7 +807,7 @@ go();document.addEventListener('DOMContentLoaded',go);
 .thmopt[aria-pressed=true]{border-color:var(--son);box-shadow:0 0 0 3px #00000014}
 .thmopt i{display:flex;height:22px;width:100%;border-radius:6px;overflow:hidden}
 .thmopt i b{flex:1}
-#donutpct{color:#34459a!important;white-space:nowrap;font-size:1.7rem;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+#donutpct{color:#1d4ed8!important;white-space:nowrap;font-size:1.7rem;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
 /* === Vệt sáng dưới "Đảng bộ xã Phúc Khánh" === */
 @media(min-width:1024px){
 .brand{position:relative;border-bottom-color:transparent}
@@ -1534,19 +1534,19 @@ function renderDonut(t,rate,active){
   const sc={done:0,part:0,empty:0};
   active.forEach(r=>{const c=status(r)[1];if(c==='done')sc.done++;else if(c==='partial')sc.part++;else sc.empty++});
   const mem=[
-    {l:'Đã nộp',v:t.paidCount,c:'#34459a'},
-    {l:'Đã duyệt, chưa nộp',v:t.approved,c:'#7f90e0'},
-    {l:'Chưa duyệt hồ sơ',v:t.pending,c:'#f2b61f'},
-    {l:'Chưa có hồ sơ',v:t.noRecord,c:'#d8452f'},
-    {l:'Miễn giảm',v:t.exempt,c:'#4fb7b0'}
+    {l:'Đã nộp',v:t.paidCount,c:'#1fa86b'},
+    {l:'Đã duyệt, chưa nộp',v:t.approved,c:'#f2b61f'},
+    {l:'Chưa duyệt hồ sơ',v:t.pending,c:'#f07b2a'},
+    {l:'Chưa có hồ sơ',v:t.noRecord,c:'#e0383f'},
+    {l:'Miễn giảm',v:t.exempt,c:'#3fb7d4'}
   ];
   const svg=$('#donutsvg');
   svg.setAttribute('aria-label',`Biểu đồ tròn: ${t.paidCount} trên ${t.due} đảng viên đã nộp, đạt ${pct(rate)}; ${sc.done} đơn vị hoàn thành, ${sc.part} đang thu, ${sc.empty} chưa phát sinh`);
   svg.innerHTML=`<circle cx="110" cy="110" r="94" fill="none" stroke="#eceef1" stroke-width="18"/><circle cx="110" cy="110" r="70" fill="none" stroke="#f3f4f6" stroke-width="10"/>`+
    `<circle cx="110" cy="110" r="106" fill="none" stroke="#c9a227" stroke-opacity=".45" stroke-width=".8" stroke-dasharray="1.5 4"/><circle cx="110" cy="110" r="58" fill="#f8f9fa"/>`+
-   `<g class="spin">${ring(94,18,mem)}</g><g class="spin">${ring(70,10,[{v:sc.done,c:'#34459a'},{v:sc.part,c:'#f2b61f'},{v:sc.empty,c:'#cfd5e6'}])}</g>`;
+   `<g class="spin">${ring(94,18,mem)}</g><g class="spin">${ring(70,10,[{v:sc.done,c:'#3b54c9'},{v:sc.part,c:'#f2b61f'},{v:sc.empty,c:'#cfd5e6'}])}</g>`;
   const rows=mem.filter(m=>m.v>0).map(m=>`<div style="--c:${m.c}"><span>${m.l}</span><b>${num(m.v)}</b></div>`).join('')||'<div style="--c:#d9dce1"><span>Chưa có số liệu</span><b>0</b></div>';
-  $('#dlegend').innerHTML=`<div class="dgroup"><p>Đảng viên, vòng ngoài</p>${rows}</div><div class="dgroup"><p>Đơn vị, vòng trong</p><div style="--c:#34459a"><span>Hoàn thành</span><b>${sc.done}</b></div><div style="--c:#f2b61f"><span>Đang thu</span><b>${sc.part}</b></div><div style="--c:#cfd5e6"><span>Chưa phát sinh</span><b>${sc.empty}</b></div></div>`;
+  $('#dlegend').innerHTML=`<div class="dgroup"><p>Đảng viên, vòng ngoài</p>${rows}</div><div class="dgroup"><p>Đơn vị, vòng trong</p><div style="--c:#3b54c9"><span>Hoàn thành</span><b>${sc.done}</b></div><div style="--c:#f2b61f"><span>Đang thu</span><b>${sc.part}</b></div><div style="--c:#cfd5e6"><span>Chưa phát sinh</span><b>${sc.empty}</b></div></div>`;
 }
 function growDonut(){
   $$('#donutsvg .seg').forEach(c=>{const L=Number(c.dataset.len),go=()=>{c.style.strokeDasharray=`${L} ${100-L}`};resetTo(c,'strokeDasharray','0 100');if(REDUCED)go();else requestAnimationFrame(()=>requestAnimationFrame(go))});
